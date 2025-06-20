@@ -5,7 +5,7 @@ import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
 import API_BASE_URL from '../utils/api';
 
-const socket = io('http://localhost:5000'); // Adjust if backend is deployed elsewhere
+const socket = io(API_BASE_URL);
 
 const Chat = () => {
   const [email, setEmail] = useState('');
