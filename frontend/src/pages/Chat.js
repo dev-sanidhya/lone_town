@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import { Box, Button, Card, CardContent, TextField, Typography, LinearProgress, IconButton } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
+import API_BASE_URL from '../utils/api';
 
 const socket = io('http://localhost:5000'); // Adjust if backend is deployed elsewhere
 
@@ -19,7 +20,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
 
   const fetchMatchId = async () => {
-    const res = await fetch(`/api/match/daily?email=${encodeURIComponent(email)}`);
+    const res = await fetch(`${API_BASE_URL}/api/match/daily?email=${encodeURIComponent(email)}`);
     const data = await res.json();
     if (data.match) setMatchId(data.match._id);
   };
@@ -44,7 +45,7 @@ const Chat = () => {
       setMessages((prev) => [...prev, { text: input, self: true, type: 'text' }]);
       setInput('');
       // Track message in backend
-      const res = await fetch('/api/message', {
+      const res = await fetch(`${API_BASE_URL}/api/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ matchId, sender: email, text: input, type: 'text' }),
@@ -74,7 +75,7 @@ const Chat = () => {
         socket.emit('chat message', { type: 'voice', voiceUrl: base64, self: true });
         setMessages((prev) => [...prev, { type: 'voice', voiceUrl: base64, self: true }]);
         // Send to backend
-        await fetch('/api/message', {
+        await fetch(`${API_BASE_URL}/api/message`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ matchId, sender: email, type: 'voice', voiceUrl: base64 }),

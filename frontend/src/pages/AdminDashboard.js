@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import API_BASE_URL from '../utils/api';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -17,7 +18,7 @@ const AdminDashboard = () => {
   const [analytics, setAnalytics] = useState(null);
 
   useEffect(() => {
-    fetch('/api/admin/analytics')
+    fetch(`${API_BASE_URL}/api/admin/analytics`)
       .then(res => res.json())
       .then(data => setAnalytics(data));
   }, []);

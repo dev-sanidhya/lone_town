@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material';
+import API_BASE_URL from '../utils/api';
 
 const Feedback = () => {
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');
 
   const fetchFeedback = async () => {
-    const res = await fetch(`/api/match/feedback?email=${encodeURIComponent(email)}`);
+    const res = await fetch(`${API_BASE_URL}/api/match/feedback?email=${encodeURIComponent(email)}`);
     const data = await res.json();
     setFeedback(data.feedback);
   };

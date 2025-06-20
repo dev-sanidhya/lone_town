@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, CardContent, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material';
+import API_BASE_URL from '../utils/api';
 
 const steps = [
   'Emotional Intelligence',
@@ -37,7 +38,7 @@ const Onboarding = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/onboarding', {
+    const res = await fetch(`${API_BASE_URL}/api/onboarding`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),

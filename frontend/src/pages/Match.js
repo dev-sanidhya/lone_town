@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, CardContent, TextField, Typography, Chip } from '@mui/material';
+import API_BASE_URL from '../utils/api';
 
 const Match = () => {
   const [email, setEmail] = useState('');
@@ -7,14 +8,14 @@ const Match = () => {
   const [message, setMessage] = useState('');
 
   const fetchMatch = async () => {
-    const res = await fetch(`/api/match/daily?email=${encodeURIComponent(email)}`);
+    const res = await fetch(`${API_BASE_URL}/api/match/daily?email=${encodeURIComponent(email)}`);
     const data = await res.json();
     setMatch(data.match);
     setMessage(data.message || '');
   };
 
   const handleUnpin = async () => {
-    const res = await fetch('/api/match/unpin', {
+    const res = await fetch(`${API_BASE_URL}/api/match/unpin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
